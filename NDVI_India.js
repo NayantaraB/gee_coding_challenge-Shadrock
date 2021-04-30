@@ -3,16 +3,16 @@ var col = ee.ImageCollection('MODIS/006/MOD13A2').select('NDVI');
 //2. Define clipping and region boundary geometries
 // Define a mask to clip the NDVI data by.
 var mask = ee.FeatureCollection('USDOS/LSIB_SIMPLE/2017')
-  .filter(ee.Filter.eq('country_co', 'GH'));
+  .filter(ee.Filter.eq('country_co', 'IN'));
 
 // Define the regional bounds of animation frames.
 // Define the regional bounds of animation frames.
 var region = ee.Geometry.Polygon(
-  [[[-3.7047315354820354,4.106017815479488],
-    [2.0081590895179646,4.106017815479488],
-    [2.0081590895179646,11.846483333174183],
-    [-3.7047315354820354,11.846483333174183],
-    [-3.7047315354820354,4.106017815479488]]],
+  [[[63.09214346451796,4.500409874838537],
+    [100.18198721451796,4.500409874838537],
+    [100.18198721451796,40.06175416516019],
+    [63.09214346451796,40.06175416516019],
+    [63.09214346451796,4.500409874838537]]],
   null, false
 );
 
@@ -40,7 +40,8 @@ var comp = joinCol.map(function(img) {
   );
   return doyCol.reduce(ee.Reducer.median());
 });
-//5. // Define RGB visualization parameters.
+//5. Make visualization images
+// Define RGB visualization parameters.
 var visParams = {
   min: 0.0,
   max: 9000.0,
